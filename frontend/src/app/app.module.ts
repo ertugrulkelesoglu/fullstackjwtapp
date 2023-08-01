@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -8,6 +9,8 @@ import { AuthContentComponent } from './auth-content/auth-content.component';
 import { WelcomeContentComponent } from './welcome-content/welcome-content.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { ContentComponent } from './content/content.component';
+import { AxiosService } from './services/axios.service';
+import { ButtonsComponent } from './buttons/buttons.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +19,15 @@ import { ContentComponent } from './content/content.component';
     AuthContentComponent,
     WelcomeContentComponent,
     LoginFormComponent,
-    ContentComponent
+    ContentComponent,
+    ButtonsComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule 
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [AxiosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

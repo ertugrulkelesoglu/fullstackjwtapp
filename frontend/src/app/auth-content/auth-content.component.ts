@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessagesService } from '../services/messages.service';
+import { AxiosService } from '../services/axios.service';
 
 @Component({
   selector: 'app-auth-content',
@@ -10,11 +11,25 @@ export class AuthContentComponent implements OnInit {
 
   messages : string[] = [];
 
-  constructor(private messagesService:MessagesService) { }
+  constructor(private axiosService: AxiosService) { }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
+    this.axiosService.request(
+        "GET",
+        "/messages",
+        {}).then(
+        (response) => {
+            this.messages = response.data;
+        }).catch(
+        (error) => {
+            if (error.response.status === 401) {
+                this.axiosService.setAuthToken(null);
+            } else {
+                this.messages = error.response.code;
+            }
 
-    this.messagesService.getMessages().subscribe((response: string[]) => this.messages = response)
+        }
+    );
   }
 
 }
